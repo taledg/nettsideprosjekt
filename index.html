@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personlig økonomi-tracker</title>
+  <title>Oslo Børs Oversikt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,141 +12,133 @@
 </head>
 <body>
   <div class="page-shell">
-    <header class="hero">
+    <header class="hero card">
       <div class="hero-copy">
-        <p class="eyebrow">Personlig økonomi</p>
-        <h1>Hold oversikt over investeringer, boligmål og spareutvikling</h1>
+        <p class="eyebrow">Norsk markedsovervåking</p>
+        <h1>Følg utviklingen på Oslo Børs med sektorer, vinnere og tapere</h1>
         <p class="hero-text">
-          Registrer porteføljen din, se prognoser og følg veien mot neste store mål med en enkel og oversiktlig tracker.
+          En ryddig oversikt over hovedindeksen, sektorutvikling og hvilke aksjer som beveger seg mest i valgt periode.
         </p>
+        <div class="period-toggle" role="group" aria-label="Velg tidsperiode">
+          <button type="button" class="toggle-button active" data-period="1d">1 dag</button>
+          <button type="button" class="toggle-button" data-period="1w">1 uke</button>
+          <button type="button" class="toggle-button" data-period="1m">1 måned</button>
+          <button type="button" class="toggle-button" data-period="6m">6 måneder</button>
+          <button type="button" class="toggle-button" data-period="1y">1 år</button>
+          <button type="button" class="toggle-button" data-period="3y">3 år</button>
+        </div>
       </div>
-      <div class="hero-summary card">
-        <p class="summary-label">Neste milepæl</p>
-        <h2 id="heroGoalProgress">0 %</h2>
-        <p id="heroGoalText">Legg inn tall for å beregne progresjon mot målet ditt.</p>
+
+      <div class="hero-summary">
+        <p class="summary-label">OBX i valgt periode</p>
+        <h2 id="marketChange">+0,0 %</h2>
+        <p id="marketSummary">Velg en periode for å se utviklingen.</p>
+        <div class="hero-meta">
+          <div>
+            <span>Siste nivå</span>
+            <strong id="marketLevel">0</strong>
+          </div>
+          <div>
+            <span>Beste sektor</span>
+            <strong id="bestSector">-</strong>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="layout">
       <section class="dashboard-section">
         <div class="section-heading">
-          <h2>Dashboard</h2>
-          <p>Oppdatert automatisk basert på registrerte tall og investeringer.</p>
+          <h2>Markedet nå</h2>
+          <p>Et raskt sammendrag av hovedindeksen og utviklingen i markedet.</p>
         </div>
 
         <div class="dashboard-grid">
           <article class="metric-card card">
-            <span>Nåværende portefølje</span>
-            <strong id="portfolioValue">kr 0</strong>
+            <span>Hovedindeks</span>
+            <strong id="mainIndexValue">0</strong>
+            <small id="mainIndexRange">Høyeste og laveste verdi</small>
           </article>
           <article class="metric-card card">
-            <span>Startkapital + investeringer</span>
-            <strong id="currentCapital">kr 0</strong>
+            <span>Utvikling</span>
+            <strong id="selectedChange">+0,0 %</strong>
+            <small id="selectedChangeLabel">I valgt periode</small>
           </article>
           <article class="metric-card card">
-            <span>Estimert verdi om 10 år</span>
-            <strong id="tenYearValue">kr 0</strong>
+            <span>Antall sektorer i pluss</span>
+            <strong id="positiveSectors">0 av 0</strong>
+            <small id="sectorPulse">Sektorbredden i markedet</small>
           </article>
           <article class="metric-card card">
-            <span>Tid til boligmål</span>
-            <strong id="goalTime">Ikke beregnet</strong>
+            <span>Største bevegelse</span>
+            <strong id="largestMove">-</strong>
+            <small id="largestMoveLabel">Aksje med størst utslag</small>
           </article>
-        </div>
-      </section>
-
-      <section class="card form-card">
-        <div class="section-heading">
-          <h2>Spareprognose</h2>
-          <p>Fyll inn grunnlaget for beregningene dine.</p>
-        </div>
-
-        <form id="settingsForm" class="form-grid" novalidate>
-          <label>
-            <span>Startkapital</span>
-            <input type="number" id="startCapital" min="0" step="1000" placeholder="For eksempel 150000">
-          </label>
-          <label>
-            <span>Månedlig sparing</span>
-            <input type="number" id="monthlySaving" min="0" step="100" placeholder="For eksempel 8000">
-          </label>
-          <label>
-            <span>Årlig avkastning (%)</span>
-            <input type="number" id="annualReturn" min="0" max="100" step="0.1" placeholder="For eksempel 7">
-          </label>
-          <label>
-            <span>Målbeløp for bolig</span>
-            <input type="number" id="goalAmount" min="0" step="1000" placeholder="For eksempel 1000000">
-          </label>
-        </form>
-
-        <div class="forecast-cards">
-          <article class="small-card">
-            <span>Om 1 år</span>
-            <strong id="forecast1">kr 0</strong>
-          </article>
-          <article class="small-card">
-            <span>Om 5 år</span>
-            <strong id="forecast5">kr 0</strong>
-          </article>
-          <article class="small-card">
-            <span>Om 10 år</span>
-            <strong id="forecast10">kr 0</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="card investments-card">
-        <div class="section-heading">
-          <h2>Investeringer</h2>
-          <p>Legg til enkeltposter for å få bedre oversikt over porteføljen.</p>
-        </div>
-
-        <form id="investmentForm" class="investment-form" novalidate>
-          <label>
-            <span>Navn på investering</span>
-            <input type="text" id="investmentName" maxlength="60" placeholder="For eksempel Global indeksfond">
-          </label>
-          <label>
-            <span>Verdi</span>
-            <input type="number" id="investmentValue" min="0" step="100" placeholder="For eksempel 45000">
-          </label>
-          <button type="submit" class="primary-button">Legg til investering</button>
-        </form>
-
-        <p id="investmentError" class="form-error" aria-live="polite"></p>
-
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>Investering</th>
-                <th>Verdi</th>
-                <th>Handling</th>
-              </tr>
-            </thead>
-            <tbody id="investmentTableBody">
-              <tr>
-                <td colspan="3" class="empty-state">Ingen investeringer registrert ennå.</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </section>
 
       <section class="card chart-card">
         <div class="section-heading chart-heading">
           <div>
-            <h2>Forventet utvikling</h2>
-            <p>Grafen viser prognosen basert på dagens tall.</p>
+            <h2>Utvikling på Oslo Børs</h2>
+            <p id="chartDescription">Grafen viser utviklingen i valgt periode.</p>
           </div>
-          <div class="chart-toggle" role="group" aria-label="Velg visning">
-            <button type="button" class="toggle-button active" data-period="monthly">Månedlig</button>
-            <button type="button" class="toggle-button" data-period="yearly">Årlig</button>
+          <div class="chart-legend">
+            <span class="legend-dot"></span>
+            <span>OBX-indeks</span>
           </div>
         </div>
         <div class="chart-wrapper">
-          <canvas id="forecastChart" aria-label="Graf over forventet utvikling"></canvas>
+          <canvas id="marketChart" aria-label="Graf som viser utviklingen på Oslo Børs"></canvas>
         </div>
+      </section>
+
+      <section class="card sectors-card">
+        <div class="section-heading">
+          <h2>Sektorer</h2>
+          <p>Sammenlign hvilke deler av markedet som leder og hvilke som henger etter.</p>
+        </div>
+        <div id="sectorGrid" class="sector-grid"></div>
+      </section>
+
+      <section class="leaders-layout">
+        <section class="card table-card">
+          <div class="section-heading">
+            <h2>Topp 3 opp</h2>
+            <p>De sterkeste aksjene i valgt periode.</p>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aksje</th>
+                  <th>Sektor</th>
+                  <th>Utvikling</th>
+                </tr>
+              </thead>
+              <tbody id="gainersBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card table-card">
+          <div class="section-heading">
+            <h2>Topp 3 ned</h2>
+            <p>De svakeste aksjene i valgt periode.</p>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aksje</th>
+                  <th>Sektor</th>
+                  <th>Utvikling</th>
+                </tr>
+              </thead>
+              <tbody id="losersBody"></tbody>
+            </table>
+          </div>
+        </section>
       </section>
     </main>
   </div>
