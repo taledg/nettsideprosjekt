@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personlig okonomi-tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Personlig okonomi</p>
+        <h1>Hold oversikt over investeringer, boligmal og spareutvikling</h1>
+        <p class="hero-text">
+          Registrer portefoljen din, se prognoser og folg veien mot neste store mal med en enkel og oversiktlig tracker.
+        </p>
+      </div>
+      <div class="hero-summary card">
+        <p class="summary-label">Neste milepael</p>
+        <h2 id="heroGoalProgress">0 %</h2>
+        <p id="heroGoalText">Legg inn tall for a beregne progresjon mot malet ditt.</p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="dashboard-section">
+        <div class="section-heading">
+          <h2>Dashboard</h2>
+          <p>Oppdatert automatisk basert pa registrerte tall og investeringer.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="metric-card card">
+            <span>Navaerende portefolje</span>
+            <strong id="portfolioValue">kr 0</strong>
+          </article>
+          <article class="metric-card card">
+            <span>Startkapital + investeringer</span>
+            <strong id="currentCapital">kr 0</strong>
+          </article>
+          <article class="metric-card card">
+            <span>Estimert verdi om 10 ar</span>
+            <strong id="tenYearValue">kr 0</strong>
+          </article>
+          <article class="metric-card card">
+            <span>Tid til boligmal</span>
+            <strong id="goalTime">Ikke beregnet</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="card form-card">
+        <div class="section-heading">
+          <h2>Spareprognose</h2>
+          <p>Fyll inn grunnlaget for beregningene dine.</p>
+        </div>
+
+        <form id="settingsForm" class="form-grid" novalidate>
+          <label>
+            <span>Startkapital</span>
+            <input type="number" id="startCapital" min="0" step="1000" placeholder="For eksempel 150000">
+          </label>
+          <label>
+            <span>Manedlig sparing</span>
+            <input type="number" id="monthlySaving" min="0" step="100" placeholder="For eksempel 8000">
+          </label>
+          <label>
+            <span>Arlig avkastning (%)</span>
+            <input type="number" id="annualReturn" min="0" max="100" step="0.1" placeholder="For eksempel 7">
+          </label>
+          <label>
+            <span>Malbelop for bolig</span>
+            <input type="number" id="goalAmount" min="0" step="1000" placeholder="For eksempel 1000000">
+          </label>
+        </form>
+
+        <div class="forecast-cards">
+          <article class="small-card">
+            <span>Om 1 ar</span>
+            <strong id="forecast1">kr 0</strong>
+          </article>
+          <article class="small-card">
+            <span>Om 5 ar</span>
+            <strong id="forecast5">kr 0</strong>
+          </article>
+          <article class="small-card">
+            <span>Om 10 ar</span>
+            <strong id="forecast10">kr 0</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="card investments-card">
+        <div class="section-heading">
+          <h2>Investeringer</h2>
+          <p>Legg til enkeltposter for a fa bedre oversikt over portefoljen.</p>
+        </div>
+
+        <form id="investmentForm" class="investment-form" novalidate>
+          <label>
+            <span>Navn pa investering</span>
+            <input type="text" id="investmentName" maxlength="60" placeholder="For eksempel Global indeksfond">
+          </label>
+          <label>
+            <span>Verdi</span>
+            <input type="number" id="investmentValue" min="0" step="100" placeholder="For eksempel 45000">
+          </label>
+          <button type="submit" class="primary-button">Legg til investering</button>
+        </form>
+
+        <p id="investmentError" class="form-error" aria-live="polite"></p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Investering</th>
+                <th>Verdi</th>
+                <th>Handling</th>
+              </tr>
+            </thead>
+            <tbody id="investmentTableBody">
+              <tr>
+                <td colspan="3" class="empty-state">Ingen investeringer registrert enna.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card chart-card">
+        <div class="section-heading chart-heading">
+          <div>
+            <h2>Forventet utvikling</h2>
+            <p>Grafen viser prognosen basert pa dagens tall.</p>
+          </div>
+          <div class="chart-toggle" role="group" aria-label="Velg visning">
+            <button type="button" class="toggle-button active" data-period="monthly">Manedlig</button>
+            <button type="button" class="toggle-button" data-period="yearly">Arlig</button>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="forecastChart" aria-label="Graf over forventet utvikling"></canvas>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
