@@ -42,13 +42,13 @@ let state = {
   chartPeriod: "monthly",
   investments: [
     { id: crypto.randomUUID(), name: "Global indeksfond", value: 85000 },
-    { id: crypto.randomUUID(), name: "Hoyrentekonto", value: 42000 }
+    { id: crypto.randomUUID(), name: "Høyrentekonto", value: 42000 }
   ]
 };
 
 let forecastChart;
 
-// Leser tidligere lagrede data slik at brukerens tall blir med mellom besok.
+// Leser tidligere lagrede data slik at brukerens tall blir med mellom besøk.
 function loadData() {
   const rawData = localStorage.getItem(STORAGE_KEY);
 
@@ -97,7 +97,7 @@ function getCurrentBalance() {
   return state.startCapital + getPortfolioTotal();
 }
 
-// Simulerer utviklingen med manedlig sparing og renters rente over valgt periode.
+// Simulerer utviklingen med månedlig sparing og renters rente over valgt periode.
 function calculateForecast(years = 10) {
   const monthlyRate = state.annualReturn / 100 / 12;
   const totalMonths = years * 12;
@@ -115,7 +115,7 @@ function calculateForecast(years = 10) {
 
     if (month % 12 === 0) {
       yearlyData.push({
-        label: `Ar ${month / 12}`,
+        label: `År ${month / 12}`,
         value: balance
       });
     }
@@ -134,11 +134,11 @@ function calculateGoalTime() {
   const currentBalance = getCurrentBalance();
 
   if (state.goalAmount <= 0) {
-    return "Legg inn et malbelop";
+    return "Legg inn et målbeløp";
   }
 
   if (currentBalance >= state.goalAmount) {
-    return "Mallet er allerede nadd";
+    return "Målet er allerede nådd";
   }
 
   const monthlyRate = state.annualReturn / 100 / 12;
@@ -150,19 +150,19 @@ function calculateGoalTime() {
     if (simulatedBalance >= state.goalAmount) {
       const years = Math.floor(month / 12);
       const remainingMonths = month % 12;
-      const yearText = years > 0 ? `${years} ar` : "";
+      const yearText = years > 0 ? `${years} år` : "";
       const monthText = remainingMonths > 0 ? `${remainingMonths} mnd` : "";
       return [yearText, monthText].filter(Boolean).join(" og ");
     }
   }
 
-  return "Mer enn 50 ar";
+  return "Mer enn 50 år";
 }
 
 function renderEmptyInvestments() {
   investmentElements.tableBody.innerHTML = `
     <tr>
-      <td colspan="3" class="empty-state">Ingen investeringer registrert enna.</td>
+      <td colspan="3" class="empty-state">Ingen investeringer registrert ennå.</td>
     </tr>
   `;
 }
@@ -199,7 +199,7 @@ function renderInvestments() {
   });
 }
 
-// Oppdaterer kortene og hero-feltet med nyeste summer, prognoser og malprogresjon.
+// Oppdaterer kortene og hero-feltet med nyeste summer, prognoser og målprogresjon.
 function updateDashboard() {
   const portfolioTotal = getPortfolioTotal();
   const currentBalance = getCurrentBalance();
@@ -217,8 +217,8 @@ function updateDashboard() {
   dashboardElements.heroGoalProgress.textContent = `${goalProgress.toFixed(1)} %`;
   dashboardElements.heroGoalText.textContent =
     state.goalAmount > 0
-      ? `${formatCurrency(currentBalance)} av ${formatCurrency(state.goalAmount)} spart mot boligmalet.`
-      : "Legg inn et malbelop for a se progresjon.";
+      ? `${formatCurrency(currentBalance)} av ${formatCurrency(state.goalAmount)} spart mot boligmålet.`
+      : "Legg inn et målbeløp for å se progresjon.";
 }
 
 function updateChart() {
@@ -319,12 +319,12 @@ function addInvestment(event) {
   const value = parsePositiveNumber(investmentElements.value.value);
 
   if (!name) {
-    investmentElements.error.textContent = "Skriv inn et navn pa investeringen.";
+    investmentElements.error.textContent = "Skriv inn et navn på investeringen.";
     return;
   }
 
   if (value <= 0) {
-    investmentElements.error.textContent = "Verdien ma vaere storre enn 0 kroner.";
+    investmentElements.error.textContent = "Verdien må være større enn 0 kroner.";
     return;
   }
 
@@ -357,7 +357,7 @@ function deleteInvestment(event) {
   updateChart();
 }
 
-// Samler event listeners ett sted for a gjore initialisering enklere a lese.
+// Samler event listeners ett sted for å gjøre initialisering enklere å lese.
 function attachEventListeners() {
   Object.values(formElements).forEach((input) => {
     input.addEventListener("input", handleSettingsChange);
