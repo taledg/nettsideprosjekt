@@ -1,148 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oslo Børs Oversikt</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <div class="page-shell">
-    <header class="hero card">
-      <div class="hero-copy">
-        <p class="eyebrow">Norsk markedsovervåking</p>
-        <h1>Følg utviklingen på Oslo Børs med sektorer, vinnere og tapere</h1>
-        <p class="hero-text">
-          En ryddig oversikt over hovedindeksen, sektorutvikling og hvilke aksjer som beveger seg mest i valgt periode.
-        </p>
-        <div class="period-toggle" role="group" aria-label="Velg tidsperiode">
-          <button type="button" class="toggle-button active" data-period="1d">1 dag</button>
-          <button type="button" class="toggle-button" data-period="1w">1 uke</button>
-          <button type="button" class="toggle-button" data-period="1m">1 måned</button>
-          <button type="button" class="toggle-button" data-period="6m">6 måneder</button>
-          <button type="button" class="toggle-button" data-period="1y">1 år</button>
-          <button type="button" class="toggle-button" data-period="3y">3 år</button>
-        </div>
-      </div>
-
-      <div class="hero-summary">
-        <p class="summary-label">OBX i valgt periode</p>
-        <h2 id="marketChange">+0,0 %</h2>
-        <p id="marketSummary">Velg en periode for å se utviklingen.</p>
-        <div class="hero-meta">
-          <div>
-            <span>Siste nivå</span>
-            <strong id="marketLevel">0</strong>
-          </div>
-          <div>
-            <span>Beste sektor</span>
-            <strong id="bestSector">-</strong>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <main class="layout">
-      <section class="dashboard-section">
-        <div class="section-heading">
-          <h2>Markedet nå</h2>
-          <p>Et raskt sammendrag av hovedindeksen og utviklingen i markedet.</p>
-        </div>
-
-        <div class="dashboard-grid">
-          <article class="metric-card card">
-            <span>Hovedindeks</span>
-            <strong id="mainIndexValue">0</strong>
-            <small id="mainIndexRange">Høyeste og laveste verdi</small>
-          </article>
-          <article class="metric-card card">
-            <span>Utvikling</span>
-            <strong id="selectedChange">+0,0 %</strong>
-            <small id="selectedChangeLabel">I valgt periode</small>
-          </article>
-          <article class="metric-card card">
-            <span>Antall sektorer i pluss</span>
-            <strong id="positiveSectors">0 av 0</strong>
-            <small id="sectorPulse">Sektorbredden i markedet</small>
-          </article>
-          <article class="metric-card card">
-            <span>Største bevegelse</span>
-            <strong id="largestMove">-</strong>
-            <small id="largestMoveLabel">Aksje med størst utslag</small>
-          </article>
-        </div>
-      </section>
-
-      <section class="card chart-card">
-        <div class="section-heading chart-heading">
-          <div>
-            <h2>Utvikling på Oslo Børs</h2>
-            <p id="chartDescription">Grafen viser utviklingen i valgt periode.</p>
-          </div>
-          <div class="chart-legend">
-            <span class="legend-dot"></span>
-            <span>OBX-indeks</span>
-          </div>
-        </div>
-        <div class="chart-wrapper">
-          <canvas id="marketChart" aria-label="Graf som viser utviklingen på Oslo Børs"></canvas>
-        </div>
-      </section>
-
-      <section class="card sectors-card">
-        <div class="section-heading">
-          <h2>Sektorer</h2>
-          <p>Sammenlign hvilke deler av markedet som leder og hvilke som henger etter.</p>
-        </div>
-        <div id="sectorGrid" class="sector-grid"></div>
-      </section>
-
-      <section class="leaders-layout">
-        <section class="card table-card">
-          <div class="section-heading">
-            <h2>Topp 3 opp</h2>
-            <p>De sterkeste aksjene i valgt periode.</p>
-          </div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Aksje</th>
-                  <th>Sektor</th>
-                  <th>Utvikling</th>
-                </tr>
-              </thead>
-              <tbody id="gainersBody"></tbody>
-            </table>
-          </div>
-        </section>
-
-        <section class="card table-card">
-          <div class="section-heading">
-            <h2>Topp 3 ned</h2>
-            <p>De svakeste aksjene i valgt periode.</p>
-          </div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Aksje</th>
-                  <th>Sektor</th>
-                  <th>Utvikling</th>
-                </tr>
-              </thead>
-              <tbody id="losersBody"></tbody>
-            </table>
-          </div>
-        </section>
-      </section>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oslo Børs Live</title>
+    <meta
+      name="description"
+      content="Følg utviklingen på Oslo Børs med hovedgraf, vinnere, tapere og tydelig datakildestatus."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/src/main.tsx"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
